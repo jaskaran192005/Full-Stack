@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product List Filter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      border: 1px solid #000;
+      padding: 20px;
+      margin-bottom: 20px;
+      width: 400px;
+    }
+    .product {
+      border: 1px solid #ccc;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+    }
+    h2 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Product List</h2>
+  <label for="category">Filter by Category:</label>
+  <select id="category" onchange="filterProducts()">
+    <option value="All">All</option>
+    <option value="Clothing">Clothing</option>
+    <option value="Electronics">Electronics</option>
+    <option value="Books">Books</option>
+  </select>
+
+  <div id="product-list"></div>
+</div>
+
+<script>
+  const products = [
+    { name: "T-Shirt", category: "Clothing" },
+    { name: "Jeans", category: "Clothing" },
+    { name: "Headphones", category: "Electronics" },
+    { name: "Smartphone", category: "Electronics" },
+    { name: "Novel", category: "Books" },
+    { name: "Cookbook", category: "Books" }
+  ];
+
+  function displayProducts(filteredProducts) {
+    const list = document.getElementById("product-list");
+    list.innerHTML = "";
+    filteredProducts.forEach(product => {
+      const item = document.createElement("div");
+      item.classList.add("product");
+      item.textContent = product.name;
+      list.appendChild(item);
+    });
+  }
+
+  function filterProducts() {
+    const selectedCategory = document.getElementById("category").value;
+    if (selectedCategory === "All") {
+      displayProducts(products);
+    } else {
+      const filtered = products.filter(p => p.category === selectedCategory);
+      displayProducts(filtered);
+    }
+  }
+
+  // Initial display
+  displayProducts(products);
+</script>
+
+</body>
+</html>
